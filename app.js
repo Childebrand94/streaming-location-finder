@@ -22,7 +22,7 @@ const options = {
     output_language: "en",
   },
   headers: {
-    "X-RapidAPI-Key": "3b60a8e8f7mshdf601e24dafb99ep1f434ejsn080c28ad1a37",
+    "X-RapidAPI-Key": "Enter your key here",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
