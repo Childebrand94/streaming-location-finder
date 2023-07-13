@@ -1,7 +1,7 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "3b60a8e8f7mshdf601e24dafb99ep1f434ejsn080c28ad1a37",
+    "X-RapidAPI-Key": "Your Key Here",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
@@ -33,55 +33,56 @@ const sendRequest = () => {
   });
 };
 
-const app = (imageSrc, title, overview) => {
-  const button = getElement(".btn_search");
+const clearCard = () => {
+  const cardContainer = document.querySelector(".grid");
+  cardContainer.innerHTML = "";
+};
+
+const createCard = (imageSrc, title, overview) => {
   const grid = getElement(".grid");
-  const searchBar = getElement(".input_search");
+  // container Div
+  const containerDiv = addClass(createElem("div"), "grid_item");
 
-  button.addEventListener("click", () => {
-    // container Div
-    const containerDiv = addClass(createElem("div"), "grid_item");
+  //inner content Div
+  const contentDiv = addClass(createElem("div"), "grid_item_content");
 
-    //inner content Div
-    const contentDiv = addClass(createElem("div"), "grid_item_content");
+  // image
+  const image = createElem("img");
+  image.src = imageSrc;
 
-    // image
-    const image = createElem("img");
-    image.src = imageSrc;
+  // title
+  const heading = addClass(createElem("h3"), "title");
+  heading.textContent = title;
 
-    // title
-    const heading = addClass(createElem("h3"), "title");
-    console.log(heading);
-    heading.textContent = title;
+  // description
+  const description = addClass(createElem("p"), "description");
+  description.textContent = overview;
 
-    // description
-    const description = addClass(createElem("p"), "description");
-    description.textContent = overview;
+  // button
+  const streamingBtn = addClass(createElem("button"), "btn_source");
+  streamingBtn.textContent = "Streaming Details";
 
-    // button
-    const streamingBtn = addClass(createElem("button"), "btn_source");
-    streamingBtn.textContent = "Streaming Details";
+  // append elements to content div
+  contentDiv.appendChild(image);
+  contentDiv.appendChild(heading);
+  contentDiv.appendChild(description);
+  contentDiv.appendChild(streamingBtn);
 
-    // append elements to content div
-    contentDiv.appendChild(image);
-    contentDiv.appendChild(heading);
-    contentDiv.appendChild(description);
-    contentDiv.appendChild(streamingBtn);
+  // append to main container div
+  containerDiv.appendChild(contentDiv);
 
-    // append to main container div
-    containerDiv.appendChild(contentDiv);
-
-    // append to page
-    grid.appendChild(containerDiv);
-  });
+  // append to page
+  grid.appendChild(containerDiv);
 };
 
 sendRequest();
 
 const parseResponse = (response) => {
-  const title = response.result[0].title;
-  const imageSrc = response.result[0].backdropURLs[300];
-  const overview = response.result[0].overview;
-
-  app(imageSrc, title, overview);
+  clearCard();
+  response.result.forEach((obj) => {
+    const title = obj.title;
+    const imageSrc = obj.posterURLs[185];
+    const overview = obj.overview;
+    createCard(imageSrc, title, overview);
+  });
 };

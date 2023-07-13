@@ -74,7 +74,7 @@ button:hover {
 
 .grid_item {
   margin: 1em 0;
-  padding: 1em 0;
+  padding: 1em 1em;
   border-radius: 25px;
   background-color: #8d99ae;
 }
