@@ -63,7 +63,7 @@ button:hover {
 /* gird style */
 .grid {
   margin-top: 2em;
-  width: 80%;
+  max-width: 300px;
   display: grid;
   grid-template-columns: 1fr;
 }

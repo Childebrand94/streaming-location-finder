@@ -10,7 +10,7 @@ const getMovie = async (title) => {
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    console.log(result);
+    return result;
   } catch (error) {
     console.error(error);
   }
@@ -18,31 +18,70 @@ const getMovie = async (title) => {
 const getElement = (string) => {
   return document.querySelector(string);
 };
+const createElem = (tag) => document.createElement(tag);
 
-const getInput = () => {
+const addClass = (elem, className) => {
+  elem.classList.add(className);
+  return elem;
+};
+
+const sendRequest = () => {
   const searchBar = getElement(".input_search");
   const searchBtn = getElement(".btn_search");
-  searchBtn.addEventListener("click", () => {
-    console.log("Hello");
-    getMovie(searchBar.value);
+  searchBtn.addEventListener("click", async () => {
+    parseResponse(await getMovie(searchBar.value));
   });
 };
 
-getInput();
+const app = (imageSrc, title, overview) => {
+  const button = getElement(".btn_search");
+  const grid = getElement(".grid");
+  const searchBar = getElement(".input_search");
 
-// const getMovie = async (title) => {
-//   const movieOptions = {
-//     ...options,
-//     params: {
-//       ...options.params,
-//       title: title,
-//     },
-//   };
-//   console.log(movieOptions);
-//   try {
-//     const response = await axios.request(movieOptions);
-//     console.log(response.data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  button.addEventListener("click", () => {
+    // container Div
+    const containerDiv = addClass(createElem("div"), "grid_item");
+
+    //inner content Div
+    const contentDiv = addClass(createElem("div"), "grid_item_content");
+
+    // image
+    const image = createElem("img");
+    image.src = imageSrc;
+
+    // title
+    const heading = addClass(createElem("h3"), "title");
+    console.log(heading);
+    heading.textContent = title;
+
+    // description
+    const description = addClass(createElem("p"), "description");
+    description.textContent = overview;
+
+    // button
+    const streamingBtn = addClass(createElem("button"), "btn_source");
+    streamingBtn.textContent = "Streaming Details";
+
+    // append elements to content div
+    contentDiv.appendChild(image);
+    contentDiv.appendChild(heading);
+    contentDiv.appendChild(description);
+    contentDiv.appendChild(streamingBtn);
+
+    // append to main container div
+    containerDiv.appendChild(contentDiv);
+
+    // append to page
+    grid.appendChild(containerDiv);
+  });
+};
+
+sendRequest();
+
+const parseResponse = (response) => {
+  const title = response.result[0].title;
+  const imageSrc = response.result[0].backdropURLs[300];
+  const overview = response.result[0].overview;
+
+  app(imageSrc, title, overview);
+};
