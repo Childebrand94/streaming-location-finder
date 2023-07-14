@@ -62,13 +62,13 @@ const unHideElement = (element) => {
 };
 
 const streamingBtnAnimation = () => {
-  const streamLocations = getElement(".stream_locations");
+  const streamLocations = getAllElements(".stream_locations");
   const btns = getAllElements(".btn_source");
-  btns.forEach((btn) => {
-    return btn.addEventListener("click", (e) => {
+  btns.forEach((btn, index) => {
+    btn.addEventListener("click", (e) => {
       console.log(e);
       hideElement(btn);
-      unHideElement(streamLocations);
+      unHideElement(streamLocations[index]);
     });
   });
 };
@@ -119,11 +119,12 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
 sendRequest();
 
 const formatStreamingInfo = (array) => {
-  return array.map((string) => string[0].toUpperCase() + string.slice(1));
+  return array.map((string) => string[0].toUpperCase() + string.slice(1)).join(" ");
 };
 
 const parseResponse = (response) => {
   clearCard();
+  console.log(response);
   response.result.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];

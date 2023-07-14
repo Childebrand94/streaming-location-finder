@@ -82,6 +82,7 @@ button:hover {
 
 .title {
   margin: 0.5em 0;
+  font-weight: 700;
 }
 
 .btn_source {
@@ -94,4 +95,11 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+.stream_locations {
+  padding: 1em 0;
+  font-size: 1.5em;
+  color: #7c695d;
+  font-weight: 700;
 }
