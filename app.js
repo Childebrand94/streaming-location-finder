@@ -118,6 +118,10 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
 
 sendRequest();
 
+const formatStreamingInfo = (array) => {
+  return array.map((string) => string[0].toUpperCase() + string.slice(1));
+};
+
 const parseResponse = (response) => {
   clearCard();
   response.result.forEach((obj) => {
@@ -125,7 +129,7 @@ const parseResponse = (response) => {
     const imageSrc = obj.posterURLs[185];
     const overview = obj.overview;
     const streamingInfo = Object.keys(obj.streamingInfo.ca || {});
-    createCard(imageSrc, title, overview, streamingInfo);
+    createCard(imageSrc, title, overview, formatStreamingInfo(streamingInfo));
   });
   streamingBtnAnimation();
 };
