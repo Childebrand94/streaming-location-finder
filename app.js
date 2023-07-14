@@ -1,7 +1,7 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "",
+    "X-RapidAPI-Key": "843e42a722msha78f8fdbb051afcp1229e5jsn275a68b5dc4a",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
@@ -125,14 +125,12 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
 sendRequest();
 
 const formatStreamingInfo = (array) => {
-  return array.map((string) => string[0].toUpperCase() + string.slice(1)).join(" ");
+  return array.map((string) => string[0].toUpperCase() + string.slice(1)).join("|");
 };
 
 const parseResponse = (response) => {
   clearCard();
-  console.log(response);
   const sortedResponse = sortObjects(response.result);
-  console.log(sortedResponse);
   sortedResponse.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];

@@ -59,25 +59,31 @@ h1 {
 
 button:hover {
   cursor: pointer;
+  background-color: #a29288;
 }
 
 /* gird style */
 .grid {
   margin-top: 2em;
-  max-width: 300px;
+  max-width: 80%;
   display: grid;
-  grid-template-columns: 1fr;
+  /* grid-template-columns: 1fr; */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1em;
 }
 
 .description {
   font-size: 0.8em;
+  margin-bottom: 4em;
 }
 
 .grid_item {
+  position: relative;
   margin: 1em 0;
   padding: 1em 1em;
   border-radius: 25px;
   background-color: #e3d5ca;
+  max-width: 300px;
 }
 
 .title {
@@ -91,6 +97,10 @@ button:hover {
   margin-top: 0.5em;
   border-radius: 25px;
   background-color: #d5bdaf;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .hidden {
@@ -102,4 +112,24 @@ button:hover {
   font-size: 1.5em;
   color: #7c695d;
   font-weight: 700;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+/* Responsive Webpage */
+/* @media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} */
+/* .grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+} */
