@@ -1,12 +1,12 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "Your Key Here",
+    "X-RapidAPI-Key": "14bf4d520dmsh798ecaedc0f4efap1cfa35jsn06d1a7e98623",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
 const getMovie = async (title) => {
-  const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${title}&country=us&show_type=all&output_language=en`;
+  const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${title}&country=ca&show_type=all&output_language=en`;
   try {
     const response = await fetch(url, options);
     const result = await response.json();
@@ -31,6 +31,11 @@ const sendRequest = () => {
   searchBtn.addEventListener("click", async () => {
     parseResponse(await getMovie(searchBar.value));
   });
+  document.addEventListener("keypress", async (e) => {
+    if (e.code == "Enter") {
+      parseResponse(await getMovie(searchBar.value));
+    }
+  });
 };
 
 const clearCard = () => {
@@ -38,7 +43,9 @@ const clearCard = () => {
   cardContainer.innerHTML = "";
 };
 
-const createCard = (imageSrc, title, overview) => {
+// const cardButton = (btn) => {};
+
+const createCard = (imageSrc, title, overview, streamingInfo) => {
   const grid = getElement(".grid");
   // container Div
   const containerDiv = addClass(createElem("div"), "grid_item");
@@ -62,11 +69,16 @@ const createCard = (imageSrc, title, overview) => {
   const streamingBtn = addClass(createElem("button"), "btn_source");
   streamingBtn.textContent = "Streaming Details";
 
+  // streaming details
+  const p = createElem("p");
+  p.textContent = streamingInfo;
+
   // append elements to content div
   contentDiv.appendChild(image);
   contentDiv.appendChild(heading);
   contentDiv.appendChild(description);
   contentDiv.appendChild(streamingBtn);
+  contentDiv.appendChild(p);
 
   // append to main container div
   containerDiv.appendChild(contentDiv);
@@ -79,10 +91,12 @@ sendRequest();
 
 const parseResponse = (response) => {
   clearCard();
+  console.log(response);
   response.result.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];
     const overview = obj.overview;
-    createCard(imageSrc, title, overview);
+    const streamingInfo = Object.keys(obj.streamingInfo.ca || {});
+    createCard(imageSrc, title, overview, streamingInfo);
   });
 };
