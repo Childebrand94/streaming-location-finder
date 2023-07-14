@@ -49,7 +49,14 @@ const clearCard = () => {
   cardContainer.innerHTML = "";
 };
 
-const sortObjects = (array) => [...array.result].sort((a, b) => b.year - a.year);
+const sortObjects = (array) => {
+  return [...array].sort((a, b) => {
+    const keyA = a.year !== undefined ? a.year : a.lastAirYear;
+    const keyB = b.year !== undefined ? b.year : b.lastAirYear;
+
+    return keyB - keyA;
+  });
+};
 
 const hideElement = (element) => {
   element.classList.add("hidden");
@@ -65,8 +72,7 @@ const streamingBtnAnimation = () => {
   const streamLocations = getAllElements(".stream_locations");
   const btns = getAllElements(".btn_source");
   btns.forEach((btn, index) => {
-    btn.addEventListener("click", (e) => {
-      console.log(e);
+    btn.addEventListener("click", () => {
       hideElement(btn);
       unHideElement(streamLocations[index]);
     });
@@ -125,7 +131,9 @@ const formatStreamingInfo = (array) => {
 const parseResponse = (response) => {
   clearCard();
   console.log(response);
-  response.result.forEach((obj) => {
+  const sortedResponse = sortObjects(response.result);
+  console.log(sortedResponse);
+  sortedResponse.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];
     const overview = obj.overview;
