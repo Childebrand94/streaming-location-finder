@@ -1,7 +1,7 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "14bf4d520dmsh798ecaedc0f4efap1cfa35jsn06d1a7e98623",
+    "X-RapidAPI-Key": "",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
@@ -25,6 +25,8 @@ const addClass = (elem, className) => {
   return elem;
 };
 
+const sortObjects = (array) => [...array.result].sort((a, b) => b.year - a.year);
+
 const sendRequest = () => {
   const searchBar = getElement(".input_search");
   const searchBtn = getElement(".btn_search");
@@ -43,8 +45,15 @@ const clearCard = () => {
   cardContainer.innerHTML = "";
 };
 
-// const cardButton = (btn) => {};
+const hideElement = (element) => {
+  element.classList.add("hidden");
+  return element;
+};
 
+const unHideElement = (element) => {
+  element.classList.remove("hidden");
+  return element;
+};
 const createCard = (imageSrc, title, overview, streamingInfo) => {
   const grid = getElement(".grid");
   // container Div
@@ -70,15 +79,15 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
   streamingBtn.textContent = "Streaming Details";
 
   // streaming details
-  const p = createElem("p");
-  p.textContent = streamingInfo;
+  const streamingLocations = createElem("p");
+  streamingLocations.textContent = streamingInfo;
 
   // append elements to content div
   contentDiv.appendChild(image);
   contentDiv.appendChild(heading);
   contentDiv.appendChild(description);
   contentDiv.appendChild(streamingBtn);
-  contentDiv.appendChild(p);
+  contentDiv.appendChild(streamingLocations);
 
   // append to main container div
   containerDiv.appendChild(contentDiv);
