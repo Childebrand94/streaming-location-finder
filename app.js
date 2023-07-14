@@ -15,17 +15,21 @@ const getMovie = async (title) => {
     console.error(error);
   }
 };
+
 const getElement = (string) => {
   return document.querySelector(string);
 };
+
+const getAllElements = (string) => {
+  return document.querySelectorAll(string);
+};
+
 const createElem = (tag) => document.createElement(tag);
 
 const addClass = (elem, className) => {
   elem.classList.add(className);
   return elem;
 };
-
-const sortObjects = (array) => [...array.result].sort((a, b) => b.year - a.year);
 
 const sendRequest = () => {
   const searchBar = getElement(".input_search");
@@ -45,6 +49,8 @@ const clearCard = () => {
   cardContainer.innerHTML = "";
 };
 
+const sortObjects = (array) => [...array.result].sort((a, b) => b.year - a.year);
+
 const hideElement = (element) => {
   element.classList.add("hidden");
   return element;
@@ -54,6 +60,19 @@ const unHideElement = (element) => {
   element.classList.remove("hidden");
   return element;
 };
+
+const streamingBtnAnimation = () => {
+  const streamLocations = getElement(".stream_locations");
+  const btns = getAllElements(".btn_source");
+  btns.forEach((btn) => {
+    return btn.addEventListener("click", (e) => {
+      console.log(e);
+      hideElement(btn);
+      unHideElement(streamLocations);
+    });
+  });
+};
+
 const createCard = (imageSrc, title, overview, streamingInfo) => {
   const grid = getElement(".grid");
   // container Div
@@ -79,8 +98,9 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
   streamingBtn.textContent = "Streaming Details";
 
   // streaming details
-  const streamingLocations = createElem("p");
+  const streamingLocations = addClass(createElem("p"), "stream_locations");
   streamingLocations.textContent = streamingInfo;
+  hideElement(streamingLocations);
 
   // append elements to content div
   contentDiv.appendChild(image);
@@ -100,7 +120,6 @@ sendRequest();
 
 const parseResponse = (response) => {
   clearCard();
-  console.log(response);
   response.result.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];
@@ -108,4 +127,5 @@ const parseResponse = (response) => {
     const streamingInfo = Object.keys(obj.streamingInfo.ca || {});
     createCard(imageSrc, title, overview, streamingInfo);
   });
+  streamingBtnAnimation();
 };

@@ -91,3 +91,7 @@ button:hover {
   border-radius: 25px;
   background-color: #d5bdaf;
 }
+
+.hidden {
+  display: none;
+}
