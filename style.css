@@ -67,7 +67,6 @@ button:hover {
   margin-top: 2em;
   max-width: 80%;
   display: grid;
-  /* grid-template-columns: 1fr; */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1em;
 }
@@ -118,18 +117,12 @@ button:hover {
   transform: translateX(-50%);
 }
 
-/* Responsive Webpage */
-/* @media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.error_image {
+  max-width: 300px;
 }
 
-@media (min-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-} */
-/* .grid {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
-} */
+.description_error {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 4em;
+}

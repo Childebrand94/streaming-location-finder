@@ -1,10 +1,26 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "843e42a722msha78f8fdbb051afcp1229e5jsn275a68b5dc4a",
+    "X-RapidAPI-Key": "",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
+const errorHandling = () => {
+  const grid = getElement(".grid");
+  const container = addClass(createElem("div"), "grid_item");
+  const containerContent = addClass(createElem("div"), "grid_item_content");
+  const image = addClass(createElem("img"), "error_image");
+  image.src = "images/something_went_wrong.png";
+
+  const description = addClass(createElem("p"), "description_error");
+  description.textContent = "An unexpected error has occurred. Please try again.";
+
+  containerContent.appendChild(image);
+  containerContent.appendChild(description);
+  container.appendChild(containerContent);
+  grid.appendChild(container);
+};
+
 const getMovie = async (title) => {
   const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${title}&country=ca&show_type=all&output_language=en`;
   try {
@@ -12,7 +28,7 @@ const getMovie = async (title) => {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -34,12 +50,21 @@ const addClass = (elem, className) => {
 const sendRequest = () => {
   const searchBar = getElement(".input_search");
   const searchBtn = getElement(".btn_search");
-  searchBtn.addEventListener("click", async () => {
-    parseResponse(await getMovie(searchBar.value));
-  });
-  document.addEventListener("keypress", async (e) => {
-    if (e.code == "Enter") {
+
+  const performSearch = async () => {
+    try {
       parseResponse(await getMovie(searchBar.value));
+    } catch (error) {
+      errorHandling();
+      return;
+    }
+  };
+
+  searchBtn.addEventListener("click", performSearch);
+
+  document.addEventListener("keypress", async (e) => {
+    if (e.code === "Enter") {
+      performSearch();
     }
   });
 };
@@ -105,7 +130,7 @@ const createCard = (imageSrc, title, overview, streamingInfo) => {
 
   // streaming details
   const streamingLocations = addClass(createElem("p"), "stream_locations");
-  streamingLocations.textContent = streamingInfo;
+  streamingLocations.textContent = streamingInfo === "" ? "N/A" : streamingInfo;
   hideElement(streamingLocations);
 
   // append elements to content div
