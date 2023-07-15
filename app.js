@@ -1,7 +1,7 @@
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "",
+    "X-RapidAPI-Key": "9ecf6bb9e3mshe874c0922ec51fcp1778e0jsn59c54c75b400",
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
@@ -42,8 +42,12 @@ const getAllElements = (string) => {
 
 const createElem = (tag) => document.createElement(tag);
 
-const addClass = (elem, className) => {
-  elem.classList.add(className);
+const addClass = (elem, classNames) => {
+  if (typeof classNames === "string") {
+    elem.classList.add(classNames);
+  } else if (Array.isArray(classNames)) {
+    elem.classList.add(...classNames);
+  }
   return elem;
 };
 
@@ -107,7 +111,7 @@ const streamingBtnAnimation = () => {
 const createCard = (imageSrc, title, overview, streamingInfo) => {
   const grid = getElement(".grid");
   // container Div
-  const containerDiv = addClass(createElem("div"), "grid_item");
+  const containerDiv = addClass(createElem("div"), ["grid_item", "fade_in"]);
 
   //inner content Div
   const contentDiv = addClass(createElem("div"), "grid_item_content");
@@ -155,7 +159,9 @@ const formatStreamingInfo = (array) => {
 
 const parseResponse = (response) => {
   clearCard();
+
   const sortedResponse = sortObjects(response.result);
+
   sortedResponse.forEach((obj) => {
     const title = obj.title;
     const imageSrc = obj.posterURLs[185];
@@ -163,5 +169,13 @@ const parseResponse = (response) => {
     const streamingInfo = Object.keys(obj.streamingInfo.ca || {});
     createCard(imageSrc, title, overview, formatStreamingInfo(streamingInfo));
   });
+
+  const cards = getAllElements(".grid_item");
+  // const cards = document.querySelectorAll(".grid_item");
+  setTimeout(function () {
+    cards.forEach((card) => {
+      addClass(card, "visible");
+    });
+  }, 200);
   streamingBtnAnimation();
 };
