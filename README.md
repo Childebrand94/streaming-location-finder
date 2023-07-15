@@ -7,30 +7,13 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
-
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
 ![Alt Text](readMe-Video/ReadMeDemo.gif)
 
-Find your where your favorite tv show or movie is currently streaming. This project used RapidApi Streaming Availability API
+Find where your favorite tv show or movie is currently streaming. This project used RapidApi Streaming Availability API
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -57,17 +40,4 @@ Follow the installation instructions below to get the app working on your comput
    ```js
    const API_KEY = "ENTER YOUR API";
    ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Chris Hildebrand - email@hildebrandc94@gmail.com
-
-Project Link: [https://github.com/childebrand94/streaming-location-finder](https://github.com/childebrand94/streaming-location-finder)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+   <p align="right">(<a href="#readme-top">back to top</a>)</p>
