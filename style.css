@@ -85,7 +85,6 @@ button:hover {
   max-width: 300px;
 }
 
-/* Testing */
 .fade_in {
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -95,7 +94,6 @@ button:hover {
   opacity: 1;
 }
 
-/* working */
 .title {
   margin: 0.5em 0;
   font-weight: 700;

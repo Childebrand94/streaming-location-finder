@@ -170,12 +170,16 @@ const parseResponse = (response) => {
     createCard(imageSrc, title, overview, formatStreamingInfo(streamingInfo));
   });
 
+  fadeInCards();
+
+  streamingBtnAnimation();
+};
+
+const fadeInCards = () => {
   const cards = getAllElements(".grid_item");
-  // const cards = document.querySelectorAll(".grid_item");
   setTimeout(function () {
     cards.forEach((card) => {
       addClass(card, "visible");
     });
   }, 200);
-  streamingBtnAnimation();
 };
