@@ -36,7 +36,7 @@ Find your where your favorite tv show or movie is currently streaming. This proj
 
 ### Built With
 
-<img src="images/built_with.png">
+<img width=40% src="images/built_with.png">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
