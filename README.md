@@ -15,13 +15,9 @@
 
 Find where your favorite tv show or movie is currently streaming. This project used RapidApi Streaming Availability API
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### Built With
 
 <img width=40% src="images/built_with.png">
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
