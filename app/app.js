@@ -181,5 +181,5 @@ const fadeInCards = () => {
     cards.forEach((card) => {
       addClass(card, "visible");
     });
-  }, 200);
+  }, 50);
 };
