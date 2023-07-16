@@ -3,6 +3,8 @@
   --primary-color: #e5e5e5;
   --button-color: #0066ff;
   --buttonHover-color: #3180f7;
+  --sourceButton-color: #b5b5b5;
+  --sourceButtonHover-color: #a1a1a1;
 }
 
 * {
@@ -105,11 +107,15 @@ button:hover {
   border: none;
   margin-top: 0.5em;
   border-radius: 25px;
-  background-color: #d5bdaf;
+  background-color: var(--sourceButton-color);
   position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.btn_source:hover {
+  background-color: var(--sourceButtonHover-color);
 }
 
 .hidden {
@@ -119,7 +125,6 @@ button:hover {
 .stream_locations {
   padding: 1em 0;
   font-size: 1.5em;
-  color: #7c695d;
   font-weight: 700;
   position: absolute;
   bottom: 5px;

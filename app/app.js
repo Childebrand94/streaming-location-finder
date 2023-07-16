@@ -10,7 +10,7 @@ const errorHandling = () => {
   const container = addClass(createElem("div"), "grid_item");
   const containerContent = addClass(createElem("div"), "grid_item_content");
   const image = addClass(createElem("img"), "error_image");
-  image.src = "images/something_went_wrong.png";
+  image.src = "../images/something_went_wrong.png";
 
   const description = addClass(createElem("p"), "description_error");
   description.textContent = "An unexpected error has occurred. Please try again.";
