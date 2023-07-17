@@ -5,33 +5,8 @@ const options = {
     "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
   },
 };
-const errorHandling = () => {
-  const grid = getElement(".grid");
-  const container = addClass(createElem("div"), "grid_item");
-  const containerContent = addClass(createElem("div"), "grid_item_content");
-  const image = addClass(createElem("img"), "error_image");
-  image.src = "../images/something_went_wrong.png";
 
-  const description = addClass(createElem("p"), "description_error");
-  description.textContent = "An unexpected error has occurred. Please try again.";
-
-  containerContent.appendChild(image);
-  containerContent.appendChild(description);
-  container.appendChild(containerContent);
-  grid.appendChild(container);
-};
-
-const getMovie = async (title) => {
-  const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${title}&country=ca&show_type=all&output_language=en`;
-  try {
-    const response = await fetch(url, options);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+// Helper functions
 const getElement = (string) => {
   return document.querySelector(string);
 };
@@ -49,6 +24,37 @@ const addClass = (elem, classNames) => {
     elem.classList.add(...classNames);
   }
   return elem;
+};
+
+// Error handling
+
+const errorHandling = () => {
+  const grid = getElement(".grid");
+  const container = addClass(createElem("div"), "grid_item");
+  const containerContent = addClass(createElem("div"), "grid_item_content");
+  const image = addClass(createElem("img"), "error_image");
+  image.src = "../images/something_went_wrong.png";
+
+  const description = addClass(createElem("p"), "description_error");
+  description.textContent = "An unexpected error has occurred. Please try again.";
+
+  containerContent.appendChild(image);
+  containerContent.appendChild(description);
+  container.appendChild(containerContent);
+  grid.appendChild(container);
+};
+
+// Sending fetch request
+
+const getMovie = async (title) => {
+  const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${title}&country=ca&show_type=all&output_language=en`;
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const sendRequest = () => {
@@ -74,7 +80,7 @@ const sendRequest = () => {
 };
 
 const clearCard = () => {
-  const cardContainer = document.querySelector(".grid");
+  const cardContainer = getElement(".grid");
   cardContainer.innerHTML = "";
 };
 
@@ -87,6 +93,7 @@ const sortObjects = (array) => {
   });
 };
 
+// used with transition to allow cards to fade on to screen
 const hideElement = (element) => {
   element.classList.add("hidden");
   return element;
@@ -181,5 +188,5 @@ const fadeInCards = () => {
     cards.forEach((card) => {
       addClass(card, "visible");
     });
-  }, 50);
+  }, 200);
 };
